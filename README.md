@@ -1,4 +1,4 @@
-# Daily China Crosspost
+# 无支祁
 
 每日新中国多平台发布流程：生成平台封面，并通过 `social-auto-upload` / `sau` 发布到：
 
