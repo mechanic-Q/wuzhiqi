@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Secrets / auth
+.env
+*.env
+cookies/
+*.cookie
+*.cookies
+*token*
+*secret*
+
+# Generated media
+video/
+*.mp4
+*.mov
+*.mkv
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.mp3
+*.wav
+*.ogg
+
+# Logs
+*.log
+logs/
+
+# Local OS/editor
+.DS_Store
+.vscode/
+.idea/
