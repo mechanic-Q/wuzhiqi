@@ -7,7 +7,7 @@
 - 小红书
 - 微信视频号
 
-> Private proprietary project. No open-source license is granted. All rights reserved.
+> Source-visible proprietary project. You may view the code, but no permission is granted to copy, modify, redistribute, or use it. Not open source.
 
 ## What it does
 
@@ -88,6 +88,8 @@ This repository intentionally does **not** include:
 
 ## License
 
-No license. All rights reserved.
+Custom proprietary source-visible license. See [`LICENSE.md`](./LICENSE.md).
 
-This is a private proprietary project. No permission is granted to copy, modify, redistribute, sublicense, or use it commercially without explicit permission.
+You may view the source code, but no permission is granted to copy, modify, redistribute, sublicense, create derivative works, or use it commercially without explicit written permission.
+
+This is not open source.
