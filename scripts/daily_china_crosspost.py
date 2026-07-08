@@ -13,7 +13,7 @@
 Do NOT modify any skill files, project files, or install packages.
 """
 
-import json, os, re, subprocess, sys, time
+import json, os, re, subprocess, sys, time, random
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -280,6 +280,9 @@ def main():
     print(f"[BILI] ok={bili_ok} rc={rc}")
 
     # 6. Publish 抖音
+    _j = random.uniform(30, 90)  # 平台间随机间隔，避免固定节奏
+    print(f"\n[INFO] Waiting {_j:.0f}s before Douyin...")
+    time.sleep(_j)
     print("\n[INFO] Publishing to Douyin...")
     dy_cover = covers.get("douyin") or covers.get("xiaohongshu")
     dy_args = [
@@ -297,6 +300,9 @@ def main():
     print(f"[DY] ok={dy_ok} rc={rc}")
 
     # 7. Publish 小红书
+    _j = random.uniform(30, 90)
+    print(f"\n[INFO] Waiting {_j:.0f}s before Xiaohongshu...")
+    time.sleep(_j)
     print("\n[INFO] Publishing to Xiaohongshu...")
     xhs_cover = covers.get("xiaohongshu")
     xhs_args = [
@@ -314,6 +320,9 @@ def main():
     print(f"[XHS] ok={xhs_ok} rc={rc}")
 
     # 8. Publish 视频号
+    _j = random.uniform(30, 90)
+    print(f"\n[INFO] Waiting {_j:.0f}s before Tencent...")
+    time.sleep(_j)
     print("\n[INFO] Publishing to Tencent/WeChat Channels...")
     tc_title = "人形机器人将进厂打工" if "机器" in headline else (headline[:20] if len(headline) > 20 else headline)
     # Pick best gpt image for tencent cover if available
