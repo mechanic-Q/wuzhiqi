@@ -19,7 +19,7 @@ from pathlib import Path
 
 SAU_DIR = Path("/home/lmr/social-auto-upload")
 VENV    = f"source {SAU_DIR}/.venv/bin/activate"
-DISPLAY = "DISPLAY="  # WSL2 headless
+DISPLAY = "env -u DISPLAY"  # WSL2 headless: fully unset DISPLAY so Chromium goes headless
 
 # ── helpers ──────────────────────────────────────────────────────────────
 
