@@ -20,6 +20,7 @@ from pathlib import Path
 SAU_DIR = Path("/home/lmr/social-auto-upload")
 VENV    = f"source {SAU_DIR}/.venv/bin/activate"
 DISPLAY = "env -u DISPLAY"  # WSL2 headless: fully unset DISPLAY so Chromium goes headless
+XVFB    = "env -u DISPLAY xvfb-run -a"  # 视频号必须 headed + xvfb
 
 # ── helpers ──────────────────────────────────────────────────────────────
 
@@ -30,8 +31,9 @@ def run(cmd, timeout=300, cwd=None):
     out = (r.stdout or "") + (r.stderr or "")
     return r.returncode, out.strip()
 
-def sau(platform, *args, timeout=600):
-    cmd = f"{VENV} && {DISPLAY} sau {platform} {' '.join(args)}"
+def sau(platform, *args, timeout=600, xvfb=False):
+    display = XVFB if xvfb else DISPLAY
+    cmd = f"{VENV} && {display} sau {platform} {' '.join(args)}"
     return run(cmd, timeout=timeout)
 
 def ffprobe_duration(path):
@@ -358,11 +360,11 @@ def main():
         "--short-title", f'"{tc_title[:15]}"',
         "--desc", f'"{tc_desc}"',
         "--tags", '"每日新中国,中国科技,人工智能"',
-        "--headless",
+        "--headed",
     ]
     if tc_cover and Path(tc_cover).exists():
         tc_args += ["--thumbnail", f'"{tc_cover}"']
-    rc, out = sau("tencent", *tc_args, timeout=600)
+    rc, out = sau("tencent", *tc_args, timeout=600, xvfb=True)
     tc_ok = rc == 0
     results["tencent"] = {"ok": tc_ok, "rc": rc, "out": out[-500:]}
     print(f"[TENCENT] ok={tc_ok} rc={rc}")
