@@ -156,7 +156,7 @@ def make_cover_ffmpeg(src_img, out_path, platform, title_text):
         size = "1080x1440"
     elif platform == "tencent":
         # 视频号 1080x1440 竖版，大号居中白字，适合社交分享小图
-        short = title[:15] if len(title) > 15 else title
+        short = title_text[:15] if len(title_text) > 15 else title_text
         vf = (
             f"scale=1080:1440:force_original_aspect_ratio=increase,"
             f"crop=1080:1440,"
