@@ -26,7 +26,7 @@ Then it:
    - B站横版封面 `1920x1080`
    - 小红书竖版封面 `1080x1440`
    - 抖音竖版封面 `1080x1440`
-   - 视频号大字社交分享封面 `1080x1440`
+   - 视频号竖版主封面 `1080x1440`（只设置一个主封面，优先手机个人主页）
 3. Publishes with `sau` to B站 / 抖音 / 小红书 / 视频号.
 4. Prints a four-platform success/failure summary.
 
@@ -63,7 +63,7 @@ Platform notes:
 - B站: `tid=232` 科工机械
 - 抖音: max 5 tags
 - 小红书: title <= 20 chars recommended
-- 视频号: title <= 15 chars recommended, cover text must be large and centered
+- 视频号: title <= 15 chars recommended, only set the 3:4 vertical main cover by default
 
 ## Scheduling
 
