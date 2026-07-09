@@ -20,7 +20,6 @@ from pathlib import Path
 SAU_DIR = Path("/home/lmr/social-auto-upload")
 VENV    = f"source {SAU_DIR}/.venv/bin/activate"
 DISPLAY = "env -u DISPLAY"  # WSL2 headless: fully unset DISPLAY so Chromium goes headless
-XVFB    = "env -u DISPLAY xvfb-run -a"  # 视频号必须 headed + xvfb
 
 # ── helpers ──────────────────────────────────────────────────────────────
 
@@ -32,8 +31,8 @@ def run(cmd, timeout=300, cwd=None):
     return r.returncode, out.strip()
 
 def sau(platform, *args, timeout=600, xvfb=False):
-    display = XVFB if xvfb else DISPLAY
-    cmd = f"{VENV} && {display} sau {platform} {' '.join(args)}"
+    disp = "xvfb-run -a" if xvfb else DISPLAY
+    cmd = f"{VENV} && {disp} sau {platform} {' '.join(args)}"
     return run(cmd, timeout=timeout)
 
 def ffprobe_duration(path):
@@ -289,6 +288,7 @@ def main():
     dy_cover = covers.get("douyin") or covers.get("xiaohongshu")
     dy_args = [
         "upload-video",
+        "--headless",
         "--account", "diyi",
         "--file", f'"{video}"',
         "--title", f'"{dy_title}"',
@@ -315,7 +315,8 @@ def main():
         "--desc", f'"{xhs_desc}"',
         "--tags", f'"{xhs_tags}"',
     ]
-    # XHS thumbnail may cause dialog hang — try without first, edit later
+    if xhs_cover and Path(xhs_cover).exists():
+        xhs_args += ["--thumbnail", f'"{xhs_cover}"']
     rc, out = sau("xiaohongshu", *xhs_args, timeout=600)
     xhs_ok = rc == 0 and ("成功" in out or "发布" in out or rc == 0)
     results["xiaohongshu"] = {"ok": xhs_ok, "rc": rc, "out": out[-500:]}
