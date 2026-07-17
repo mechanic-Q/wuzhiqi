@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""每日新中国 — 四平台封面生成 + 发布脚本（无人值守）
+"""每日新中国 — B站、小红书、视频号发布脚本（无人值守）
 
 前置：10:00 cron 已生成视频 /mnt/e/每日新中国/<date>/video/每日新中国_<date>_GPT最终版.mp4
 本脚本在 12:00 运行，做：
   1. 读 3新闻_概述.md，选主图
-  2. ffmpeg 生成 B站横版封面(1920x1080) + 小红书竖版封面(1080x1440) + 抖音竖版裁切 + 视频号竖版封面
-  3. sau 发布抖音 / B站 / 小红书 / 视频号
+  2. ffmpeg 生成 B站横版封面(1920x1080) + 小红书竖版封面(1080x1440) + 视频号竖版封面
+  3. 用 sau 发布 B站、小红书、视频号
   4. 输出结果摘要
 
 退出码 0=全部成功，1=部分失败，2=致命错误
@@ -13,8 +13,8 @@
 Do NOT modify any skill files, project files, or install packages.
 """
 
-import json, os, re, subprocess, sys, time, random
-from datetime import datetime, timedelta
+import re, subprocess, sys, time, random
+from datetime import datetime
 from pathlib import Path
 
 SAU_DIR = Path("/home/lmr/social-auto-upload")
@@ -110,11 +110,6 @@ def make_short_title(headline, platform="bilibili"):
         if "科技" in full: return "中国科技今天又有新突破"
         if "导弹" in full or "海军" in full: return "中国海军又有大动作"
         return h_short[:20]
-    elif platform == "douyin":
-        # ≤30 chars, keyword-rich for search
-        if "机器人" in full: return "人形机器人进厂打工，中国科技今天又有这些进展"
-        if "科技" in full: return "科技自立自强，中国今天又有这些新进展"
-        return h_short[:30]
     elif platform == "bili_cover":
         # ≤25 chars for cover text readability
         if "机器人" in full: return "人形机器人真进厂打工了"
@@ -170,12 +165,8 @@ def make_cover_ffmpeg(src_img, out_path, platform, title_text):
             f"shadowcolor=black:shadowx=1:shadowy=1"
         )
         size = "1080x1440"
-    else:  # douyin — use xhs cover cropped to 1080x1440 (same ratio)
-        vf = (
-            f"scale=1080:1440:force_original_aspect_ratio=increase,"
-            f"crop=1080:1440"
-        )
-        size = "1080x1440"
+    else:
+        raise ValueError(f"unsupported cover platform: {platform}")
 
     # Escape single quotes in text for ffmpeg
     title_escaped = title_text.replace("'", r"\'")
@@ -226,7 +217,7 @@ def main():
     # 3. Generate covers
     vid_dir = Path(f"/mnt/e/每日新中国/{date_s}/video")
     covers = {}
-    for platform in ["bilibili", "xiaohongshu", "douyin", "tencent"]:
+    for platform in ["bilibili", "xiaohongshu", "tencent"]:
         if platform == "bilibili":
             title = make_short_title(headline, "bili_cover")
         elif platform == "tencent":
@@ -247,9 +238,6 @@ def main():
     bili_desc   = f"每日更新中国科技工业进展。本期亮点：{headline}"
     bili_tags   = "每日新中国,中国科技,人工智能,人形机器人,科技自立,中国制造,科工机械,工业升级,今日要闻,机器人"
     bili_tid    = "232"  # 科技→科工机械
-
-    dy_title    = make_short_title(headline, "douyin")
-    dy_tags     = "每日新中国,中国科技,人工智能,人形机器人,中国制造"  # max 5
 
     xhs_title   = make_short_title(headline, "xiaohongshu")
     xhs_desc    = (
@@ -279,27 +267,6 @@ def main():
     bili_ok = rc == 0 and ("upload" in out.lower() or "BV" in out or "成功" in out)
     results["bilibili"] = {"ok": bili_ok, "rc": rc, "out": out[-500:]}
     print(f"[BILI] ok={bili_ok} rc={rc}")
-
-    # 6. Publish 抖音
-    _j = random.uniform(30, 90)  # 平台间随机间隔，避免固定节奏
-    print(f"\n[INFO] Waiting {_j:.0f}s before Douyin...")
-    time.sleep(_j)
-    print("\n[INFO] Publishing to Douyin...")
-    dy_cover = covers.get("douyin") or covers.get("xiaohongshu")
-    dy_args = [
-        "upload-video",
-        "--headless",
-        "--account", "diyi",
-        "--file", f'"{video}"',
-        "--title", f'"{dy_title}"',
-        "--tags", f'"{dy_tags}"',
-    ]
-    if dy_cover and Path(dy_cover).exists():
-        dy_args += ["--thumbnail", f'"{dy_cover}"']
-    rc, out = sau("douyin", *dy_args, timeout=600)
-    dy_ok = rc == 0
-    results["douyin"] = {"ok": dy_ok, "rc": rc, "out": out[-500:]}
-    print(f"[DY] ok={dy_ok} rc={rc}")
 
     # 7. Publish 小红书
     _j = random.uniform(30, 90)
@@ -372,7 +339,7 @@ def main():
 
     # 9. Summary
     print("\n" + "="*60)
-    print("每日新中国四平台发布结果")
+    print("每日新中国三平台发布结果")
     print("="*60)
     for p, r in results.items():
         status = "✅ 成功" if r["ok"] else "❌ 失败"

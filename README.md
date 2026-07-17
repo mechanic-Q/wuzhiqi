@@ -1,11 +1,14 @@
 # 无支祁
 
-每日新中国多平台发布流程：生成平台封面，并通过 `social-auto-upload` / `sau` 发布到：
+> Language: 中文
+
+每日新中国长版多平台发布流程：生成平台封面，并通过 `social-auto-upload` / `sau` 发布到：
 
 - B站
-- 抖音
 - 小红书
 - 微信视频号
+
+抖音三条专版由独立私有项目 `daily-china-douyin` 生成、串行发布和公开核验，不属于本仓库。
 
 > Source-visible proprietary project. You may view the code, but no permission is granted to copy, modify, redistribute, or use it. Not open source.
 
@@ -25,10 +28,9 @@ Then it:
 2. Generates covers with `ffmpeg`:
    - B站横版封面 `1920x1080`
    - 小红书竖版封面 `1080x1440`
-   - 抖音竖版封面 `1080x1440`
    - 视频号竖版主封面 `1080x1440`（只设置一个主封面，优先手机个人主页）
-3. Publishes with `sau` to B站 / 抖音 / 小红书 / 视频号.
-4. Prints a four-platform success/failure summary.
+3. Publishes with `sau` to B站 / 小红书 / 视频号.
+4. Prints a three-platform success/failure summary.
 
 ## Requirements
 
@@ -61,7 +63,6 @@ diyi
 Platform notes:
 
 - B站: `tid=232` 科工机械
-- 抖音: max 5 tags
 - 小红书: title <= 20 chars recommended
 - 视频号: title <= 15 chars recommended, only set the 3:4 vertical main cover by default
 
