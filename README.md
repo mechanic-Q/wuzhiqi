@@ -1,3 +1,15 @@
+<p align="center">
+  <img src="./assets/readme/hero.svg" width="100%" alt="无支祁：每日新中国多平台发布流程——一个视频自动生成 B 站横版、小红书竖版、视频号竖版封面，sau 一键发布并输出三平台成败汇总">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/平台-B站_·_小红书_·_视频号-c94f4f" alt="发布平台：B站、小红书、视频号">
+  &nbsp;
+  <img src="https://img.shields.io/badge/封面-ffmpeg_自动生成-c94f4f" alt="ffmpeg 自动生成封面">
+  &nbsp;
+  <img src="https://img.shields.io/badge/发布-social--auto--upload-58b7b0" alt="social-auto-upload 发布">
+</p>
+
 # 无支祁
 
 > Language: 中文
