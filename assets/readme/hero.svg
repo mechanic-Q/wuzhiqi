@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1200" height="320" viewBox="0 0 1200 320"
+     role="img" aria-labelledby="wz-title wz-desc">
+  <title id="wz-title">无支祁 — 每日新中国多平台发布流程</title>
+  <desc id="wz-desc">左侧为项目名与一句话介绍：一个视频自动生成三个平台的封面并通过 sau 发布到 B 站、小红书、微信视频号。右侧为三张封面示意卡：B 站横版与小红书、视频号竖版，各带发布结果标记。</desc>
+
+  <rect width="1200" height="320" rx="26" fill="#10181a"/>
+
+  <!-- ===== 左：标题块 ===== -->
+  <g id="title-block" transform="translate(64 0)">
+    <text x="0" y="84" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+          font-size="16" letter-spacing="2" fill="#58b7b0">每日新中国 · CROSS-POST PIPELINE</text>
+
+    <text x="0" y="148" font-family="-apple-system, 'PingFang SC', 'Microsoft YaHei', 'Noto Serif SC', serif"
+          font-size="58" font-weight="800" fill="#ece9e2">无支祁</text>
+    <text x="188" y="148" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+          font-size="18" fill="#8ba0a3">wuzhiqi</text>
+
+    <text x="0" y="196" font-family="-apple-system, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif"
+          font-size="22" fill="#c3ccc9">一个视频，三个平台——封面自动生成，</text>
+    <text x="0" y="228" font-family="-apple-system, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif"
+          font-size="22" fill="#c3ccc9">sau 一键发布，三平台成败汇总一目了然。</text>
+
+    <text x="0" y="274" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+          font-size="16" fill="#8ba0a3">B站 1920×1080 横版 · 小红书 1080×1440 · 视频号 1080×1440</text>
+    <text x="0" y="300" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+          font-size="16" fill="#8ba0a3">ffmpeg 封面 · social-auto-upload · source-visible proprietary</text>
+  </g>
+
+  <!-- ===== 右：三平台封面 ===== -->
+  <g id="covers">
+    <!-- B站横版 16:9 -->
+    <g>
+      <rect x="656" y="70" width="180" height="101" rx="8" fill="#1a2528" stroke="#2e3f43"/>
+      <rect x="672" y="88" width="84" height="10" rx="3" fill="#c94f4f"/>
+      <rect x="672" y="106" width="132" height="8" rx="3" fill="#8ba0a3" opacity="0.5"/>
+      <rect x="672" y="120" width="108" height="8" rx="3" fill="#8ba0a3" opacity="0.35"/>
+      <rect x="672" y="142" width="44" height="16" rx="4" fill="#c94f4f" opacity="0.85"/>
+      <text x="694" y="154" font-family="-apple-system, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="11" fill="#ece9e2" text-anchor="middle">封面</text>
+      <circle cx="812" cy="90" r="7" fill="#3ddc97"/>
+      <text x="746" y="192" font-family="-apple-system, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="16" fill="#ece9e2" text-anchor="middle">B站 · 横版</text>
+    </g>
+    <!-- 小红书竖版 3:4 -->
+    <g>
+      <rect x="868" y="70" width="96" height="128" rx="8" fill="#1a2528" stroke="#2e3f43"/>
+      <rect x="880" y="86" width="52" height="9" rx="3" fill="#c94f4f"/>
+      <rect x="880" y="102" width="72" height="7" rx="3" fill="#8ba0a3" opacity="0.5"/>
+      <rect x="880" y="114" width="60" height="7" rx="3" fill="#8ba0a3" opacity="0.35"/>
+      <circle cx="948" cy="86" r="6" fill="#3ddc97"/>
+      <text x="916" y="192" font-family="-apple-system, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="16" fill="#ece9e2" text-anchor="middle">小红书 · 竖版</text>
+    </g>
+    <!-- 视频号竖版 -->
+    <g>
+      <rect x="996" y="70" width="96" height="128" rx="8" fill="#1a2528" stroke="#2e3f43"/>
+      <rect x="1008" y="86" width="52" height="9" rx="3" fill="#58b7b0"/>
+      <rect x="1008" y="102" width="72" height="7" rx="3" fill="#8ba0a3" opacity="0.5"/>
+      <rect x="1008" y="114" width="60" height="7" rx="3" fill="#8ba0a3" opacity="0.35"/>
+      <circle cx="1076" cy="86" r="6" fill="#3ddc97"/>
+      <text x="1044" y="192" font-family="-apple-system, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="16" fill="#ece9e2" text-anchor="middle">视频号 · 竖版</text>
+    </g>
+    <!-- 汇总条 -->
+    <rect x="656" y="216" width="436" height="52" rx="10" fill="#1a2528" stroke="#2e3f43"/>
+    <text x="676" y="248" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+          font-size="16" fill="#8ba0a3">发布汇总 <tspan fill="#3ddc97" font-weight="700">✓ B站</tspan>  <tspan fill="#3ddc97" font-weight="700">✓ 小红书</tspan>  <tspan fill="#3ddc97" font-weight="700">✓ 视频号</tspan></text>
+  </g>
+</svg>
